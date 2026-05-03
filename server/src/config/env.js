@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const requiredEnv = ['MONGODB_URI', 'JWT_SECRET'];
+const stripTrailingSlashes = (value) => value?.replace(/\/+$/, '');
 
 for (const key of requiredEnv) {
   if (!process.env[key]) {
@@ -16,5 +17,5 @@ export const env = {
   mongoUri: process.env.MONGODB_URI,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
-  clientUrl: process.env.CLIENT_URL || 'http://localhost:5173'
+  clientUrl: stripTrailingSlashes(process.env.CLIENT_URL || 'http://localhost:5173')
 };
